@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AuraRoutine | Meu Ritmo Diário</title>
+  <title>Minha Jornada & Rotina</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
   <div class="app-container">
     <header class="header">
       <div class="badge">Planejamento Semanal</div>
-      <h1 class="gradient-title">AuraRoutine</h1>
+      <h1 class="gradient-title">Minha Jornada & Rotina</h1>
       <p class="subtitle">Harmonia, disciplina e constância na sua jornada diária</p>
       
       <!-- Navegação de Dias -->
@@ -167,151 +167,4 @@
           title: "Despertar & Escola",
           time: "06:30 - 12:20",
           icon: "☀️",
-          summary: "Rotina matutina padrão: café em família e escola.",
-          description: "Constância é a chave: energia garantida pelo café em família antes das aulas.",
-          steps: [
-            "Despertar energizado",
-            "Café da manhã com a família",
-            "Aulas na escola"
-          ]
-        },
-        {
-          period: "Tarde",
-          title: "Teclado & Foco",
-          time: "14:00 - 17:00",
-          icon: "🎹",
-          summary: "Estudo de música e revisão de conteúdo.",
-          description: "Equilíbrio entre arte e estudos teóricos.",
-          steps: [
-            "Treino instrumental no teclado",
-            "Bloco curto de revisão escolar"
-          ]
-        }
-      ],
-      quinta: [
-        {
-          period: "Manhã",
-          title: "Despertar & Escola",
-          time: "06:30 - 12:20",
-          icon: "☀️",
-          summary: "Rotina matutina padrão: café em família e escola.",
-          description: "Início do dia alinhado com a rotina diária de aprendizado e convivência.",
-          steps: [
-            "Manhã em família",
-            "Presença e estudos na escola"
-          ]
-        },
-        {
-          period: "Tarde/Noite",
-          title: "Academia & Bem-Estar",
-          time: "17:30 - 19:30",
-          icon: "🏋️‍♀️",
-          summary: "Caminhada e treino físico.",
-          description: "Manter o corpo em movimento para descansar a mente.",
-          steps: [
-            "Caminhada até a academia",
-            "Treino do dia",
-            "Descanso noturno"
-          ]
-        }
-      ],
-      sexta: [
-        {
-          period: "Manhã",
-          title: "Despertar & Escola",
-          time: "06:30 - 12:20",
-          icon: "☀️",
-          summary: "Rotina matutina padrão: café em família e escola.",
-          description: "Fechando a semana escolar com chave de ouro e presença familiar.",
-          steps: [
-            "Café da manhã especial de sexta",
-            "Últimas aulas da semana"
-          ]
-        },
-        {
-          period: "Tarde",
-          title: "Teclado & Finalização",
-          time: "14:00 - 16:30",
-          icon: "🎵",
-          summary: "Prática musical e organização do fim de semana.",
-          description: "Finalização das metas semanais.",
-          steps: [
-            "Prática livre no teclado",
-            "Organização da semana seguinte"
-          ]
-        }
-      ]
-    };
-
-    let currentDay = 'segunda';
-
-    // Renderizar os Cards da Rotina
-    function renderCards(day) {
-      const grid = document.getElementById('cardsGrid');
-      grid.innerHTML = '';
-      
-      const items = routineData[day] || [];
-      
-      items.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'card-3d';
-        card.style.animationDelay = `${index * 0.1}s`;
-        card.onclick = () => openModal(item);
-
-        card.innerHTML = `
-          <div class="card-icon">${item.icon}</div>
-          <span class="card-period">${item.period}</span>
-          <h3 class="card-title">${item.title}</h3>
-          <p class="card-time">⏱️ ${item.time}</p>
-          <p class="card-summary">${item.summary}</p>
-          <div class="card-action">Ver detalhes ➔</div>
-        `;
-        
-        grid.appendChild(card);
-      });
-    }
-
-    // Alternar entre os dias
-    function switchDay(day) {
-      currentDay = day;
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderCards(day);
-    }
-
-    // Abrir Modal
-    function openModal(item) {
-      document.getElementById('mPeriod').innerText = item.period;
-      document.getElementById('mTitle').innerText = item.title;
-      document.getElementById('mTime').innerText = item.time;
-      document.getElementById('mDescription').innerText = item.description;
-
-      const stepsList = document.getElementById('mSteps');
-      stepsList.innerHTML = '';
-      item.steps.forEach(step => {
-        const li = document.createElement('li');
-        li.innerText = step;
-        stepsList.appendChild(li);
-      });
-
-      document.getElementById('routineModal').classList.add('active');
-    }
-
-    // Fechar Modal
-    function closeModal() {
-      document.getElementById('routineModal').classList.remove('active');
-    }
-
-    // Fechar ao clicar fora do conteúdo
-    window.onclick = function(e) {
-      const modal = document.getElementById('routineModal');
-      if (e.target === modal) {
-        closeModal();
-      }
-    };
-
-    // Inicialização
-    renderCards(currentDay);
-  </script>
-</body>
-</html>
+          summary: "Rotina matutina padrão: café em família e
