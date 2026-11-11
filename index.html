@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Jornada & Rotina</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Elementos 3D Tridimensionais Flutuando ao Fundo -->
+  <div class="bg-3d-scene">
+    <div class="shape3d sphere sphere-1"></div>
+    <div class="shape3d torus torus-1"></div>
+    <div class="shape3d pyramid pyramid-1"></div>
+    <div class="shape3d sphere sphere-2"></div>
+    <div class="shape3d cube cube-1"></div>
+    <div class="shape3d torus torus-2"></div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="app-container">
+    <header class="header">
+      <div class="badge">Planejamento Semanal</div>
+      <h1 class="gradient-title">Minha Jornada & Rotina</h1>
+      <p class="subtitle">Harmonia, disciplina e constância na sua jornada diária</p>
+      
+      <!-- Navegação de Dias -->
+      <nav class="day-tabs">
+        <button class="tab-btn active" onclick="switchDay('segunda', event)">Segunda-feira</button>
+        <button class="tab-btn" onclick="switchDay('terca', event)">Terça-feira</button>
+        <button class="tab-btn" onclick="switchDay('quarta', event)">Quarta-feira</button>
+        <button class="tab-btn" onclick="switchDay('quinta', event)">Quinta-feira</button>
+        <button class="tab-btn" onclick="switchDay('sexta', event)">Sexta-feira</button>
+      </nav>
+    </header>
+
+    <!-- Grid de Cards de Rotina -->
+    <main class="cards-grid" id="cardsGrid">
+      <!-- Os cards serão injetados dinamicamente via JS -->
+    </main>
+  </div>
+
+  <!-- Modal com Efeito de Zoom 3D -->
+  <div class="modal-overlay" id="routineModal">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div class="modal-header">
+        <span class="modal-period" id="mPeriod">Manhã</span>
+        <h2 id="mTitle" class="gradient-title">Título do Período</h2>
+      </div>
+      <div class="modal-body">
+        <div class="info-tag">⏱️ Horário estimado: <strong id="mTime">07:00 - 12:00</strong></div>
+        <p id="mDescription" class="modal-desc">Descrição detalhada...</p>
+        
+        <h3>Passo a passo da rotina</h3>
+        <ul id="mSteps" class="steps-list"></ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-close-modal" onclick="closeModal()">Concluído</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Embutido -->
+  <script>
+    // Estrutura com a rotina detalhada e específica de cada dia da semana
+    const routineData = {
+      segunda: [
+        {
+          period: "Manhã",
+          title: "Despertar & Escola",
+          time: "06:30 - 12:20",
+          icon: "☀️",
+          summary: "Café da manhã especial com a família e aulas na escola.",
+          description: "O início da semana começa com a conexão familiar no café da manhã e foco total nas aulas da escola.",
+          steps: [
+            "Acordar e organizar os materiais escolares",
+            "Tomar café da manhã reunido com a família",
+            "Ir para a escola e acompanhar as aulas do dia"
+          ]
+        },
+        {
+          period: "Início da Tarde",
+          title: "Treino no Teclado",
+          time: "13:30 - 15:00",
+          icon: "🎹",
+          summary: "Prática musical e treino instrumental.",
+          description: "Dedicação para tocar teclado, praticando escalas, partituras e novas músicas.",
+          steps: [
+            "Aquecimento de dedos e exercitar escalas",
+            "Treinar a leitura de partitura",
+            "Praticar o repertório de músicas atual"
+          ]
+        },
+        {
+          period: "Fim da Tarde",
+          title: "Estudo Focado (2h)",
+          time: "15:30 - 17:30",
+          icon: "📚",
+          summary: "2 horas contínuas de estudos em casa.",
+          description: "Período em casa reservado para revisar matérias da escola e realizar tarefas.",
+          steps: [
+            "Revisar o conteúdo das aulas da manhã",
+            "Fazer exercícios e deveres de casa",
+            "Organizar resumos para as próximas avaliações"
+          ]
+        },
+        {
+          period: "Noite",
+          title: "Academia & Caminhada com Amiga",
+          time: "18:00 - 19:30",
+          icon: "👟",
+          summary: "Caminhada a pé com amiga e treino para descansar a mente.",
+          description: "Momento de descompressão. O trajeto a pé com a amiga prepara o corpo para o treino na academia.",
+          steps: [
+            "Encontrar a amiga e ir a pé conversando até a academia",
+            "Realizar a ficha de treino do dia",
+            "Retornar a pé e relaxar para a noite"
+          ]
+        }
+      ],
+      terca: [
+        {
+          period: "Manhã",
+          title: "Despertar & Escola",
+          time: "06:30 - 12:20",
+          icon: "☀️",
+          summary: "Manhã padrão: café com a família e escola.",
+          description: "Mantendo a rotina matutina fixa com um bom café em família antes das aulas.",
+          steps: [
+            "Despertar e arrumar-se para o dia",
+            "Café da manhã reforçado com a família",
+            "Ir para a escola e participar das atividades"
+          ]
+        },
+        {
+          period: "Início da Tarde",
+          title: "Prática de Teclado",
+          time: "13:30 - 15:00",
+          icon: "🎹",
+          summary: "Treino de técnica e percepção musical.",
+          description: "Sessão focada na evolução musical e domínio do teclado.",
+          steps: [
+            "Exercícios de agilidade e ritmo",
+            "Estudo de novas técnicas e acordes",
+            "Tocar as músicas favoritas"
+          ]
+        },
+        {
+          period: "Fim da Tarde",
+          title: "Bloco de Estudos (2h)",
+          time: "15:30 - 17:30",
+          icon: "📖",
+          summary: "2 horas de aprofundamento das matérias escolares.",
+          description: "Manter a constância de 2 horas diárias de estudo após chegar em casa.",
+          steps: [
+            "Revisão das matérias da terça-feira",
+            "Resolução de listas de exercícios",
+            "Organizar anotações da semana"
+          ]
+        },
+        {
+          period: "Noite",
+          title: "Descanso & Tempo Pessoal",
+          time: "18:00 - 21:00",
+          icon: "🌙",
+          summary: "Recuperação de energias para o meio da semana.",
+          description: "Noite livre para desacelerar, ouvir música e recarregar o corpo e a mente.",
+          steps: [
+            "Jantar em família",
+            "Assistir a uma série ou ler um livro",
+            "Preparar o uniforme e material para quarta-feira"
+          ]
+        }
+      ],
+      quarta: [
+        {
+          period: "Manhã",
+          title: "Despertar & Escola",
+          time: "06:30 - 12:20",
+          icon: "☀️",
+          summary: "Manhã padrão: café com a família e escola.",
+          description: "Início do dia com a presença da família no café da manhã antes de seguir para a escola.",
+          steps: [
+            "Acordar no horário habitual",
+            "Tomar café da manhã reunido na mesa com a família",
+            "Assistir às aulas na escola"
+          ]
+        },
+        {
+          period: "Início da Tarde",
+          title: "Prática no Teclado",
+          time: "13:30 - 15:00",
+          icon: "🎹",
+          summary: "Sessão musical da tarde.",
+          description: "Hora da música para expressar criatividade e aprimorar a tocar teclado.",
+          steps: [
+            "Revisar partituras anteriores",
+            "Praticar independência das mãos",
+            "Execução de trechos musicais desafiadores"
+          ]
+        },
+        {
+          period: "Fim da Tarde",
+          title: "Sessão de Estudos (2h)",
+          time: "15:30 - 17:30",
+          icon: "✍️",
+          summary: "Estudo concentrado de 2 horas em casa.",
+          description: "Consolidação dos conteúdos escolares com foco e sem distrações.",
+          steps: [
+            "Leitura dos capítulos indicados pelos professores",
+            "Elaboração de mapas mentais",
+            "Resolução de tarefas pendentes"
+          ]
+        },
+        {
+          period: "Noite",
+          title: "Academia & Caminhada",
+          time: "18:00 - 19:30",
+          icon: "👟",
+          summary: "Caminhada a pé com a amiga e treino físico.",
+          description: "Manter a saúde em dia com a caminhada acompanhada da amiga até a academia.",
+          steps: [
+            "Encontrar a amiga na hora combinada",
+            "Ir a pé para a academia conversando",
+            "Treino completo e caminhada de volta"
+          ]
+        }
+      ],
+      quinta: [
+        {
+          period: "Manhã",
+          title: "Despertar & Escola",
+          time: "06:30 - 12:20",
+          icon: "☀️",
+          summary: "Manhã padrão: café com a família e escola.",
+          description: "Manter a constância matutina com o café da manhã em família e foco na escola.",
+          steps: [
+            "Rotina matutina de cuidados",
+            "Café da manhã com a família",
+            "Ir para a escola e participar das aulas"
+          ]
+        },
+        {
+          period: "Início da Tarde",
+          title: "Estudo no Teclado",
+          time: "13:30 - 15:00",
+          icon: "🎹",
+          summary: "Treino focado em harmonia e ritmos.",
+          description: "Momento dedicado à evolução constante no teclado.",
+          steps: [
+            "Treino de sequências de acordes",
+            "Prática de ritmo e metrônomo",
+            "Tocar repertório completo"
+          ]
+        },
+        {
+          period: "Fim da Tarde",
+          title: "Bloco de Estudos (2h)",
+          time: "15:30 - 17:30",
+          icon: "📚",
+          summary: "2 horas dedicadas aos livros e tarefas.",
+          description: "Adiantar os deveres de casa e revisar matérias para o final da semana.",
+          steps: [
+            "Revisão dos tópicos da quinta-feira",
+            "Fazer exercícios práticos",
+            "Organizar dúvidas para tirar com os professores"
+          ]
+        },
+        {
+          period: "Noite",
+          title: "Descanso Noturno",
+          time: "18:00 - 21:00",
+          icon: "✨",
+          summary: "Relaxamento e descanso mental.",
+          description: "Período para descansar o corpo e preparar a mente para o fechamento da semana.",
+          steps: [
+            "Jantar em família",
+            "Tempo livre de entretenimento",
+            "Dormir cedo para renovar as energias"
+          ]
+        }
+      ],
+      sexta: [
+        {
+          period: "Manhã",
+          title: "Despertar & Escola",
+          time: "06:30 - 12:20",
+          icon: "☀️",
+          summary: "Manhã padrão: café com a família e escola.",
+          description: "Encerrando a semana escolar mantendo a tradição do café em família.",
+          steps: [
+            "Acordar para o último dia de aula da semana",
+            "Café da manhã especial de sexta com a família",
+            "Aulas na escola e encerramento do conteúdo semanal"
+          ]
+        },
+        {
+          period: "Início da Tarde",
+          title: "Teclado Livre",
+          time: "13:30 - 15:00",
+          icon: "🎵",
+          summary: "Prática musical criativa e divertida.",
+          description: "Momento mais leve no teclado para tocar livremente as músicas que mais gosta.",
+          steps: [
+            "Tocar as canções favoritas por prazer",
+            "Tirar novas músicas de ouvido",
+            "Improvisação musical"
+          ]
+        },
+        {
+          period: "Fim da Tarde",
+          title: "Estudos de Encerramento (2h)",
+          time: "15:30 - 17:30",
+          icon: "📝",
+          summary: "2 horas para deixar a semana em dia.",
+          description: "Finalizar todas as tarefas escolares para aproveitar o final de semana sem pendências.",
+          steps: [
+            "Concluir todos os deveres da semana",
+            "Revisar o planejamento da semana seguinte",
+            "Guardar o material com tudo organizado"
+          ]
+        },
+        {
+          period: "Noite",
+          title: "Academia & Fim de Semana",
+          time: "18:00 - 20:00",
+          icon: "👟",
+          summary: "Caminhada com amiga, treino e celebração do fim de semana.",
+          description: "Fechando a semana com a caminhada com a amiga, treino na academia e início do descanso do final de semana.",
+          steps: [
+            "Caminhada a pé animada com a amiga até a academia",
+            "Treino de encerramento da semana",
+            "Retornar a pé para aproveitar a noite de sexta-feira"
+          ]
+        }
+      ]
+    };
+
+    let currentDay = 'segunda';
+
+    function renderCards(day) {
+      const grid = document.getElementById('cardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      
+      const items = routineData[day] || [];
+      
+      items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card-3d';
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.onclick = () => openModal(item);
+
+        card.innerHTML = `
+          <div class="card-icon">${item.icon}</div>
+          <span class="card-period">${item.period}</span>
+          <h3 class="card-title">${item.title}</h3>
+          <p class="card-time">⏱️ ${item.time}</p>
+          <p class="card-summary">${item.summary}</p>
+          <div class="card-action">Ver detalhes ➔</div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+
+    function switchDay(day, evt) {
+      currentDay = day;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (evt && evt.target) {
+        evt.target.classList.add('active');
+      }
+      renderCards(day);
+    }
+
+    function openModal(item) {
+      document.getElementById('mPeriod').innerText = item.period;
+      document.getElementById('mTitle').innerText = item.title;
+      document.getElementById('mTime').innerText = item.time;
+      document.getElementById('mDescription').innerText = item.description;
+
+      const stepsList = document.getElementById('mSteps');
+      stepsList.innerHTML = '';
+      item.steps.forEach(step => {
+        const li = document.createElement('li');
+        li.innerText = step;
+        stepsList.appendChild(li);
+      });
+
+      document.getElementById('routineModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('routineModal').classList.remove('active');
+    }
+
+    window.onclick = function(e) {
+      const modal = document.getElementById('routineModal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCards(currentDay);
+    });
+  </script>
+</body>
+</html>
