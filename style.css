@@ -1,11 +1,8 @@
-/* =========================================================
-   VARIÁVEIS DE COR (Degradê: Ciano Elétrico, Violeta e Rosa Neon)
-   ========================================================= */
 :root {
   --bg-dark: #07070d;
-  --color-1: #00f2fe; /* Ciano */
-  --color-2: #9b51e0; /* Violeta */
-  --color-3: #ff2a85; /* Rosa Neon */
+  --color-1: #00f2fe;
+  --color-2: #9b51e0;
+  --color-3: #ff2a85;
   --gradient-3d: linear-gradient(135deg, var(--color-1), var(--color-2), var(--color-3));
   --glass-surface: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
@@ -29,9 +26,6 @@ body {
   position: relative;
 }
 
-/* =========================================================
-   CENÁRIO 3D AO FUNDO (Objetos Tridimensionais Flutuantes)
-   ========================================================= */
 .bg-3d-scene {
   position: fixed;
   top: 0;
@@ -50,7 +44,6 @@ body {
   animation: float3d 14s infinite ease-in-out alternate;
 }
 
-/* Esferas 3D */
 .sphere {
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, var(--color-1), var(--color-2));
@@ -75,7 +68,6 @@ body {
   animation-delay: -4s;
 }
 
-/* Torus / Anéis 3D */
 .torus {
   border: 18px solid transparent;
   border-radius: 50%;
@@ -103,7 +95,6 @@ body {
   animation: rotateTorus 22s infinite linear reverse;
 }
 
-/* Pirâmides / Polígonos 3D */
 .pyramid {
   width: 0;
   height: 0;
@@ -120,7 +111,6 @@ body {
   right: 22%;
 }
 
-/* Cubo 3D */
 .cube-1 {
   width: 70px;
   height: 70px;
@@ -132,9 +122,6 @@ body {
   animation: floatCube 15s infinite ease-in-out;
 }
 
-/* =========================================================
-   ESTRUTURA PRINCIPAL
-   ========================================================= */
 .app-container {
   position: relative;
   z-index: 1;
@@ -178,7 +165,6 @@ body {
   margin-bottom: 30px;
 }
 
-/* SELETOR DE DIAS */
 .day-tabs {
   display: flex;
   justify-content: center;
@@ -211,9 +197,6 @@ body {
   box-shadow: 0 8px 20px rgba(0, 242, 254, 0.3);
 }
 
-/* =========================================================
-   GRID DE CARDS TRIDIMENSIONAIS
-   ========================================================= */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -287,9 +270,6 @@ body {
   color: var(--color-1);
 }
 
-/* =========================================================
-   MODAL (Visual Glassmorphism 3D)
-   ========================================================= */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -416,9 +396,6 @@ body {
   box-shadow: 0 14px 28px rgba(255, 42, 133, 0.35);
 }
 
-/* =========================================================
-   KEYFRAMES DE ANIMAÇÃO 3D
-   ========================================================= */
 @keyframes float3d {
   0% {
     transform: translateY(0) rotateX(0deg) rotateY(0deg);
